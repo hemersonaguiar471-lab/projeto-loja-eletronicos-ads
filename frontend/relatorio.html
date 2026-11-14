@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório - TechStore</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>TechStore 🖥️</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cadastro.html">Cadastro</a></li>
+                <li><a href="relatorio.html">Relatório</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Dashboard de Vendas</h2>
+        <table id="tabelaRelatorio">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Produto</th>
+                    <th>Qtd. Vendida</th>
+                    <th>Faturamento (R$)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Os dados vão aparecer aqui mágicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Puxa os dados do PHP assim que a página abre
+        async function carregarRelatorio() {
+            try {
+                const resposta = await fetch('../backend/relatorio.php');
+                const dados = await resposta.json();
+                
+                const tbody = document.querySelector('#tabelaRelatorio tbody');
+                tbody.innerHTML = ''; // Limpa a tabela
+
+                dados.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.categoria}</td>
+                        <td>${item.produto}</td>
+                        <td>${item.qtd_vendida}</td>
+                        <td>R$ ${parseFloat(item.faturamento).toFixed(2).replace('.', ',')}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (erro) {
+                alert("Erro ao carregar o relatório.");
+            }
+        }
+
+        carregarRelatorio();
+    </script>
+</body>
+</html>
