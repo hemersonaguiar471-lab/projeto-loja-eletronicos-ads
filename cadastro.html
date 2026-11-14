@@ -63,7 +63,8 @@
 
             const dados = new FormData(form);
             try {
-                const resposta = await fetch('https://lojahemersoninfinityfreecom.lovestoblog.com/cadastrar.php', { method: 'POST', body: dados });
+                // Link usando o Túnel Mágico (Proxy CORS) para driblar o bloqueio
+                const resposta = await fetch('https://corsproxy.io/?url=https%3A%2F%2Flojahemersoninfinityfreecom.lovestoblog.com%2Fcadastrar.php', { method: 'POST', body: dados });
                 const json = await resposta.json();
                 
                 msg.style.color = json.ok ? "#10b981" : "#ef4444";
@@ -71,7 +72,7 @@
                 if (json.ok) form.reset(); 
             } catch (erro) {
                 msg.style.color = "#ef4444";
-                msg.textContent = "Erro de conexão. O servidor pode estar acordando, tente novamente.";
+                msg.textContent = "Erro de conexão. Tente novamente em instantes.";
             }
         });
     </script>

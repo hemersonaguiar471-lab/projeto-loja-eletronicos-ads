@@ -40,7 +40,8 @@
     <script>
         async function carregarRelatorio() {
             try {
-                const resposta = await fetch('https://lojahemersoninfinityfreecom.lovestoblog.com/relatorio.php');
+                // Link usando o Túnel Mágico (Proxy CORS) para driblar o bloqueio
+                const resposta = await fetch('https://corsproxy.io/?url=https%3A%2F%2Flojahemersoninfinityfreecom.lovestoblog.com%2Frelatorio.php');
                 
                 if (!resposta.ok) throw new Error("Servidor PHP offline");
                 
@@ -63,7 +64,7 @@
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="4" style="text-align: center; padding: 2rem; color: #ef4444;">
-                            <strong>⚠️ O servidor gratuito está acordando...</strong><br>
+                            <strong>⚠️ O servidor está acordando...</strong><br>
                             Aguarde 1 minuto e atualize a página (F5).
                         </td>
                     </tr>
