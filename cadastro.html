@@ -14,6 +14,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="produtos.html">Produtos</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
                 <li><a href="cadastro.html">Cadastro</a></li>
                 <li><a href="relatorio.html">Relatório</a></li>
             </ul>
@@ -62,7 +63,6 @@
 
             const dados = new FormData(form);
             try {
-                // O link do seu InfinityFree está bem aqui:
                 const resposta = await fetch('https://lojahemersoninfinityfreecom.lovestoblog.com/cadastrar.php', { method: 'POST', body: dados });
                 const json = await resposta.json();
                 
