@@ -1,78 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - TechStore</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body class="page-cadastro">
-    <header>
-        <h1>TechStore 🖥️</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="produtos.html">Produtos</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="cadastro.html">Cadastro</a></li>
-                <li><a href="relatorio.html">Relatório</a></li>
-            </ul>
-        </nav>
-    </header>
+<?php
+require 'conexao.php';
 
-    <div class="cadastro-container">
-        <div class="cadastro-card">
-            <h2>Crie sua conta</h2>
-            <p class="subtitulo">Junte-se à elite da tecnologia.</p>
-            
-            <form id="formCadastro">
-                <div class="input-group">
-                    <input type="text" name="nome" placeholder="Nome Completo" required>
-                    <span class="icon">👤</span>
-                </div>
-                <div class="input-group">
-                    <input type="email" name="email" placeholder="E-mail" required>
-                    <span class="icon">✉️</span>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="cpf" placeholder="CPF" required>
-                    <span class="icon">🪪</span>
-                </div>
-                <div class="input-group">
-                    <input type="number" name="idade" placeholder="Idade" min="18" required>
-                    <span class="icon">🎂</span>
-                </div>
-                <button type="submit">Finalizar Cadastro</button>
-                <p id="msg"></p>
-            </form>
-        </div>
-    </div>
+$nome  = trim($_POST['nome']  ?? '');
+$email = trim($_POST['email'] ?? '');
+$cpf   = trim($_POST['cpf']   ?? '');
+$idade = (int)($_POST['idade'] ?? 0);
 
-    <script>
-        document.getElementById('formCadastro').addEventListener('submit', async (e) => {
-            e.preventDefault(); 
-            const form = e.target;
-            const msg = document.getElementById('msg');
-            
-            if (!form.nome.value || !form.email.value || !form.cpf.value || !form.idade.value) {
-                msg.style.color = "#ef4444";
-                msg.textContent = "Por favor, preencha todos os campos!";
-                return;
-            }
+if ($nome === '' || $email === '' || $cpf === '' || $idade <= 0) {
+    echo json_encode(['ok'=>false, 'msg'=>'Preencha todos os campos corretamente.']);
+    exit;
+}
 
-            const dados = new FormData(form);
-            try {
-                const resposta = await fetch('https://lojahemersoninfinityfreecom.lovestoblog.com/cadastrar.php', { method: 'POST', body: dados });
-                const json = await resposta.json();
-                
-                msg.style.color = json.ok ? "#10b981" : "#ef4444";
-                msg.textContent = json.msg;
-                if (json.ok) form.reset(); 
-            } catch (erro) {
-                msg.style.color = "#ef4444";
-                msg.textContent = "Erro de conexão. O servidor pode estar acordando, tente novamente.";
-            }
-        });
-    </script>
-</body>
-</html>
+$stmt = $conn->prepare("INSERT INTO cliente (nome,email,cpf,idade) VALUES (?,?,?,?)");
+$stmt->bind_param("sssi", $nome, $email, $cpf, $idade);
+
+if ($stmt->execute()) {
+    echo json_encode(['ok'=>true, 'msg'=>'Cliente cadastrado com sucesso!']);
+} else {
+    echo json_encode(['ok'=>false, 'msg'=>'Erro: Email ou CPF já cadastrado.']);
+}
+?>

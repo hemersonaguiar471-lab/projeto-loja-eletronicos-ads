@@ -12,6 +12,9 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
                 <li><a href="cadastro.html">Cadastro</a></li>
                 <li><a href="relatorio.html">Relatório</a></li>
             </ul>
@@ -30,20 +33,20 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Os dados vão aparecer aqui mágicamente -->
             </tbody>
         </table>
     </div>
 
     <script>
-        // Puxa os dados do PHP assim que a página abre
         async function carregarRelatorio() {
             try {
-                const resposta = await fetch('../backend/relatorio.php');
-                const dados = await resposta.json();
+                const resposta = await fetch('https://projeto-loja-eletronicos-production.up.railway.app/relatorio.php');
                 
+                if (!resposta.ok) throw new Error("Servidor PHP offline");
+                
+                const dados = await resposta.json();
                 const tbody = document.querySelector('#tabelaRelatorio tbody');
-                tbody.innerHTML = ''; // Limpa a tabela
+                tbody.innerHTML = ''; 
 
                 dados.forEach(item => {
                     const tr = document.createElement('tr');
@@ -56,10 +59,17 @@
                     tbody.appendChild(tr);
                 });
             } catch (erro) {
-                alert("Erro ao carregar o relatório.");
+                const tbody = document.querySelector('#tabelaRelatorio tbody');
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 2rem; color: #ef4444;">
+                            <strong>⚠️ Servidor iniciando ou fora do ar...</strong><br>
+                            Aguarde alguns segundos e atualize a página (F5).
+                        </td>
+                    </tr>
+                `;
             }
         }
-
         carregarRelatorio();
     </script>
 </body>

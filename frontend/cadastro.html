@@ -6,7 +6,6 @@
     <title>Cadastro - TechStore</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<!-- A classe page-cadastro ativa o fundo escuro imersivo -->
 <body class="page-cadastro">
     <header>
         <h1>TechStore 🖥️</h1>
@@ -15,6 +14,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="produtos.html">Produtos</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
                 <li><a href="cadastro.html">Cadastro</a></li>
                 <li><a href="relatorio.html">Relatório</a></li>
             </ul>
@@ -31,22 +31,18 @@
                     <input type="text" name="nome" placeholder="Nome Completo" required>
                     <span class="icon">👤</span>
                 </div>
-                
                 <div class="input-group">
                     <input type="email" name="email" placeholder="E-mail" required>
                     <span class="icon">✉️</span>
                 </div>
-                
                 <div class="input-group">
                     <input type="text" name="cpf" placeholder="CPF" required>
                     <span class="icon">🪪</span>
                 </div>
-                
                 <div class="input-group">
                     <input type="number" name="idade" placeholder="Idade" min="18" required>
                     <span class="icon">🎂</span>
                 </div>
-                
                 <button type="submit">Finalizar Cadastro</button>
                 <p id="msg"></p>
             </form>
@@ -60,22 +56,22 @@
             const msg = document.getElementById('msg');
             
             if (!form.nome.value || !form.email.value || !form.cpf.value || !form.idade.value) {
-                msg.style.color = "#ef4444"; // Vermelho moderno
+                msg.style.color = "#ef4444";
                 msg.textContent = "Por favor, preencha todos os campos!";
                 return;
             }
 
             const dados = new FormData(form);
             try {
-                const resposta = await fetch('../backend/cadastrar.php', { method: 'POST', body: dados });
+                const resposta = await fetch('https://projeto-loja-eletronicos-production.up.railway.app/cadastrar.php', { method: 'POST', body: dados });
                 const json = await resposta.json();
                 
-                msg.style.color = json.ok ? "#10b981" : "#ef4444"; // Verde ou Vermelho
+                msg.style.color = json.ok ? "#10b981" : "#ef4444";
                 msg.textContent = json.msg;
                 if (json.ok) form.reset(); 
             } catch (erro) {
                 msg.style.color = "#ef4444";
-                msg.textContent = "Erro de conexão com o servidor.";
+                msg.textContent = "Erro de conexão. Tente novamente em instantes.";
             }
         });
     </script>

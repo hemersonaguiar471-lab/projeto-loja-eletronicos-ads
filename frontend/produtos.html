@@ -14,6 +14,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="produtos.html">Produtos</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
                 <li><a href="cadastro.html">Cadastro</a></li>
                 <li><a href="relatorio.html">Relatório</a></li>
             </ul>
@@ -33,7 +34,6 @@
         </div>
 
         <div class="grid-produtos" id="gridProdutos">
-            
             <!-- CELULARES -->
             <div class="card-produto" data-categoria="celulares">
                 <span class="tag">Celular</span>
@@ -53,7 +53,6 @@
                     <a href="cadastro.html" class="btn-comprar">Comprar</a>
                 </div>
             </div>
-
             <!-- NOTEBOOKS -->
             <div class="card-produto" data-categoria="notebooks">
                 <span class="tag">Notebook</span>
@@ -82,7 +81,6 @@
                     <a href="cadastro.html" class="btn-comprar">Comprar</a>
                 </div>
             </div>
-
             <!-- ÁUDIO -->
             <div class="card-produto" data-categoria="fones">
                 <span class="tag">Áudio</span>
@@ -111,7 +109,6 @@
                     <a href="cadastro.html" class="btn-comprar">Comprar</a>
                 </div>
             </div>
-
             <!-- ACESSÓRIOS -->
             <div class="card-produto" data-categoria="acessorios">
                 <span class="tag">Acessório</span>
@@ -140,7 +137,6 @@
                     <a href="cadastro.html" class="btn-comprar">Comprar</a>
                 </div>
             </div>
-
             <!-- SMARTWATCHES -->
             <div class="card-produto" data-categoria="smartwatches">
                 <span class="tag">Smartwatch</span>
@@ -160,8 +156,6 @@
                     <a href="cadastro.html" class="btn-comprar">Comprar</a>
                 </div>
             </div>
-
-            <!-- Mais Notebooks para encher -->
             <div class="card-produto" data-categoria="notebooks">
                 <span class="tag">Notebook</span>
                 <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80" alt="Acer">
@@ -180,16 +174,13 @@
                     <a href="cadastro.html" class="btn-comprar">Comprar</a>
                 </div>
             </div>
-
         </div>
     </div>
-
     <script>
         function filtrar(categoria) {
             const botoes = document.querySelectorAll('.btn-filtro');
             botoes.forEach(btn => btn.classList.remove('ativo'));
             event.target.classList.add('ativo');
-
             const produtos = document.querySelectorAll('.card-produto');
             produtos.forEach(produto => {
                 if (categoria === 'todos' || produto.getAttribute('data-categoria') === categoria) {
