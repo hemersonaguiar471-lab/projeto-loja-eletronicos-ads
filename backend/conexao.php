@@ -1,11 +1,12 @@
 <?php
+$host = "mysql.railway.internal";
+$user = "root";
+$pass = "jHHtFdhYsLrgOyQVZgqyxWNIRoFhypm";
+$db   = "railway";
+$port = 3306;
 
-$host = "sql109.infinityfree.com";
-$user = "if0_43441403";
-$pass = "KcIx34YpeI3AU38";
-$db   = "if0_43441403_loja_eletronicos";
-
-$conn = new mysqli($host, $user, $pass, $db);
+// O número 3306 no final é a porta do Railway
+$conn = new mysqli($host, $user, $pass, $db, $port);
 
 if ($conn->connect_error) {
     die(json_encode([
@@ -20,5 +21,4 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json; charset=utf-8');
-
 ?>
