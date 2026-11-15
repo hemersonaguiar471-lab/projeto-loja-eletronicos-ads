@@ -40,7 +40,6 @@
     <script>
         async function carregarRelatorio() {
             try {
-                // Link do Railway correto
                 const resposta = await fetch('https://projeto-loja-eletronicos-ads-production.up.railway.app/relatorio.php');
                 
                 if (!resposta.ok) throw new Error("Servidor PHP offline");
@@ -64,8 +63,8 @@
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="4" style="text-align: center; padding: 2rem; color: #ef4444;">
-                            <strong>⚠️ Erro ao carregar.</strong><br>
-                            O servidor pode estar iniciando. Aguarde e atualize (F5).
+                            <strong>⚠️ Servidor iniciando ou fora do ar...</strong><br>
+                            Aguarde alguns segundos e atualize a página (F5).
                         </td>
                     </tr>
                 `;
