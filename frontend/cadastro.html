@@ -63,7 +63,8 @@
 
             const dados = new FormData(form);
             try {
-                const resposta = await fetch('https://projeto-loja-eletronicos-production.up.railway.app/cadastrar.php', { method: 'POST', body: dados });
+                // Link corrigido com o "-ads"
+                const resposta = await fetch('https://projeto-loja-eletronicos-ads-production.up.railway.app/cadastrar.php', { method: 'POST', body: dados });
                 const json = await resposta.json();
                 
                 msg.style.color = json.ok ? "#10b981" : "#ef4444";
