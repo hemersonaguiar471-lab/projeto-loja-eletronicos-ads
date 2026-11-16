@@ -31,7 +31,8 @@
             <!-- Formulário de Contato -->
             <div class="cadastro-card" style="max-width: 500px; margin: 0; animation: none;">
                 <h2 style="text-align: left; margin-bottom: 1.5rem;">Envie uma mensagem</h2>
-                <form onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso! Entraremos em contato em breve.'); this.reset();">
+                
+                <form id="formContato">
                     <div class="input-group">
                         <input type="text" placeholder="Seu Nome" required>
                         <span class="icon">👤</span>
@@ -49,6 +50,11 @@
                         <span class="icon" style="top: 20px;">📝</span>
                     </div>
                     <button type="submit">Enviar Mensagem</button>
+                    
+                    <!-- A nova mensagem de sucesso -->
+                    <div id="msgContato" style="display: none; margin-top: 1.5rem; padding: 1rem; background: #dcfce7; color: #166534; border-radius: 8px; text-align: center; font-weight: 600; border: 1px solid #bbf7d0;">
+                        ✅ Mensagem enviada com sucesso! Entraremos em contato em breve.
+                    </div>
                 </form>
             </div>
 
@@ -69,5 +75,21 @@
             </div>
         </div>
     </div>
+
+    <!-- Script para fazer a mensagem aparecer sem pular a tela -->
+    <script>
+        document.getElementById('formContato').addEventListener('submit', function(e) {
+            e.preventDefault(); // Impede o envio real e o recarregamento da página
+            const msg = document.getElementById('msgContato');
+            
+            this.reset(); // Limpa os campos do formulário
+            
+            // Mostra a mensagem e some depois de 4 segundos
+            msg.style.display = 'block';
+            setTimeout(() => {
+                msg.style.display = 'none';
+            }, 4000);
+        });
+    </script>
 </body>
 </html>
